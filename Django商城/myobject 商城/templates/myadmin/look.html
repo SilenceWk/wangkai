@@ -1,0 +1,28 @@
+{% extends 'myadmin/base.html'%}
+{% load static from staticfiles %}
+
+{% block mainbody%}
+<center>
+<div class="span9">
+	<h2>订单信息</h2>
+	<table class="table table-bordered table-striped ">
+		<tr>
+			<td>收件人</td>
+			<td>地址</td>
+			<td>邮编</td>
+			<td>电话</td>
+			<td>状态</td>
+		</tr>
+		{% for user in userinfo %}
+		<tr>
+			<td>{{user.linkman}}</td>
+			<td>{{user.address}}</td>
+			<td>{{user.code}}</td>
+			<td>{{user.phone}}</td>
+			<td>{{user.status}}----<a href="{% url 'change' %}?gid={{user.id}}">状态修改</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+</center>
+{% endblock %}

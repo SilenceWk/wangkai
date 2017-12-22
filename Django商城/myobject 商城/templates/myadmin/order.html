@@ -1,0 +1,30 @@
+{% extends 'myadmin/base.html' %}
+
+{% load static from staticfiles %}
+{% block mainbody %}
+<center>	
+<h2>订单信息浏览</h2>
+<div class="span9">
+<table class="table table-bordered table-striped ">
+	<tr>
+		<td>订单号</td>
+		<td style="text-align:center">商品照片</td>
+		<td>商品名称</td>
+		<td>商品价格</td>
+		<td>商品购买数量</td>
+		<td style="text-align:center">操作</td>
+	</tr>
+{% for order in orderlist %}
+	<tr>
+		<td style="line-height:100px">{{order.orderid}}</td>
+		<td><img src="/static/goods/s_{{order.picname}}" alt=""></td>
+		<td style="line-height:100px">{{order.name}}</td>
+		<td style="line-height:100px">{{order.price}}</td>
+		<td style="line-height:100px">{{order.num}}</td>
+		<td style="line-height:100px"><a href="{% url 'look' %}?gid={{order.orderid}}">查看订单信息</a></td>
+	</tr>
+{% endfor %}
+</table>
+</div>
+</center>
+{% endblock %}

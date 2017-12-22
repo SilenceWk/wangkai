@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/myweb/css/bootstrap.css">
+<title>订单确认页</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+</head>
+<body style="background: url('/static/myweb/wk1.jpg');">
+<center>
+<h2>订单确认页</h2><br><br>
+<h3>收货地址</h3><br><br><br>
+<form action="{% url 'ordersinsert' %}" method="post" >
+{% csrf_token %}
+<!-- <input type='hidden' name='csrfmiddlewaretoken' value='Hm62vyLSrt2ZBW4GVqdGXYynKkqVatl2Co1XSsKSLqA9O7lrZUoFApGLg8Qm1dHE' /> -->
+<table width="320" border="0" cellpadding="4" class=".table" height='300px'>
+<tr>
+<td align="right">收件人：</td>
+<td><input type="text" readonly="" name="linkman" value="{{request.session.vipuser.name}}"/></td>
+</tr>
+<tr>
+<td align="right">地址：</td>
+<td>
+<input type="text" readonly="" name="address" value="{{request.session.vipuser.address}}"/>
+</td>
+</tr>
+<tr>
+<td align="right">邮编：</td>
+<td>
+<input type="text" readonly="" name="code" value="{{request.session.vipuser.code}}"/>
+</td>
+</tr>
+<tr>
+<td align="right">电话：</td>
+<td><input type="text" readonly="" name="phone" value="{{request.session.vipuser.phone}}"/></td>
+</tr>
+<tr>
+<td align="right">总金额：</td>
+<td>￥:{{request.session.total}}元</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<input type="submit" class="btn btn-default btn-xs" value="确认下单"/>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="reset" class="btn btn-default btn-xs" value="重置"/>
+</td>
+</tr>
+</table>
+</form>
+<br/><br/>
+<h3>购物车信息</h3><br><br>
+<table width="620" border="1" cellpadding="4" class=".table">
+<tr>
+<th>ID号</th>
+<th>名称</th>
+<th>图片</th>
+<th>单价</th>
+<th>数量</th>
+<th>小计</th>
+</tr>
+{% for good in request.session.orderlist.values %}
+<tr>
+<td>{{good.id}}</td>
+<td>{{good.goods}}</td>
+<td><img src="/static/goods/s_{{good.picname}}" width="50"></td>
+<td>{{good.price}}</td>
+<td>{{good.m}}</td>
+<td>{% widthratio good.price 1 good.m %}</td>
+<tr>
+{% endfor %}
+</table>
+</center>
+</body>
+</html>

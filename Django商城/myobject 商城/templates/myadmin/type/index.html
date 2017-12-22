@@ -1,0 +1,62 @@
+{% extends 'myadmin/base.html' %}
+{% block mainbody%}
+
+<center>
+<div class="span9">
+<table class="table table-bordered table-striped">
+<h4>
+    商品类别信息管理
+</h4>
+    <form class="navbar-search pull-left" action="{% url 'myadmin_typeindex' 1 %}">
+        <input type="text" class="search-query span2" name='name' placeholder="Search" />
+        <input type="submit" class="search-query" value="搜索" />
+
+    </form>
+<br><br>
+    <thead>
+        <tr>
+            <th>ID号</th>
+            <th>类别名称</th>
+            <th>父类别id</th>
+            <th>路径</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vo in typeslist %}
+        <tr>
+            <!-- 自增 -->
+            <td>{{forloop.counter}}</td>
+            <td>{{vo.pname}}|--{{ vo.name }}</td>
+            <td>{{ vo.pid }}</td>
+            <td>{{ vo.path }}</td>
+            <td width="30%">
+                {% if vo.path|length != 6 %}<a href="{% url 'myadmin_typeadd' vo.id %}" class="view-link">添加子类别</a>{% endif %}
+                <a href="{% url 'myadmin_typedel' vo.id %}  " class="view-link">删除</a>
+                <a href="{% url 'myadmin_typeedit' vo.id %}" class="view-link">编辑</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+             
+<div class="pagination">
+        {% if pIndex != 1 %}
+            <a href="/myadmin/type{{pIndex|add:'-1'}}">&laquo;</a>&nbsp;
+        {% endif %}
+        {% for pindex in plist %}
+            {% if pIndex == pindex %}
+                {{pindex}}&nbsp;&nbsp;
+            {% else %}
+                <a href="/myadmin/type{{pindex}}">{{pindex}}</a>&nbsp;&nbsp;
+            {% endif %}
+        {% endfor %}
+        <!-- {{maxnum}} -->
+        <!-- {{pIndex}} -->
+        {% if pIndex < maxnum%}
+        <a href="/myadmin/type{{pIndex|add:'1'}}">&raquo;</a>
+        {% endif %}
+</div>
+</div>
+</center>
+{% endblock %}

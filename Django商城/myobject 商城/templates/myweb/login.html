@@ -1,0 +1,28 @@
+{% extends 'myweb/loginbase.html' %}
+{% load static from staticfiles %}
+{% block mainbody %}
+<form id="mainForm" class="main-form" action="{% url 'dologin' %}" method="post">
+	{% csrf_token %}
+
+	<div class="tab-title">
+		<a class="linkAGray" id="toAccountLogin" href="javascript:void(0);">账号登录</a>
+	</div>
+	<div>
+		  <span class="tip-font" style='width:280px;color:red'>{{info}}</span>
+	</div>
+	<div class="normalInput cycode-box fieldInput" id="cycode-box">
+		<div class="cycode-selectbox">
+			<input class="ipt-account inp-focus" name="user" id="account" maxlength="50" placeholder="账号" autocomplete="off">
+		</div>
+	</div>
+	<div class="normalInput fieldInput passwd-box">
+		<input class="inp-focus" name="password" id="password" maxlength="16" placeholder="密码" autocomplete="off" type="password">
+   </div>
+	<a href="{% url 'login'%}"><button class="btn btn-primary btn-lg" style="width:300px;">登录</button></a>
+	<div class="transferField">
+		<br>
+		<a class="go2forgetpwd linkABlue rememberFieldForA" href="#">忘记密码?</a>
+		<a class="go2register linkABlue" href="{% url 'register' %}" id="toRegister">注册</a>
+	</div>
+</form>
+{% endblock %}
